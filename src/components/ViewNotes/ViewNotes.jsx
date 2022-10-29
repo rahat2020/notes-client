@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import './ViewNotes.css';
 
-const ViewNotes = () => {
+const ViewNotes = ({handleModalClose}) => {
   const _id = JSON.parse(localStorage.getItem('data'))
   const [data, setData] = useState([])
   console.log(data)
@@ -22,14 +22,14 @@ const ViewNotes = () => {
   }, [_id])
   return (
     <div className="viewNotes">
-      <div className="viewNotes__container">
+      <div className="Vnotes">
         <div className="card me-2 mt-1" style={{ width: '17rem', borderRadius: '10px' }}>
           <div className="card-body">
             <h5 className="card-title">{data.title}</h5>
             <p className="card-text">{data.description}</p>
-            {/* <div className="d-flex justify-content-between ">
-              <button className="btn btn-primary"><i className="fa-solid fa-trash"></i></button>
-            </div> */}
+            <div className="d-flex justify-content-between ">
+              <button className="btn btn-primary"><i className="fa-solid fa-xmark" onClick={handleModalClose}></i></button>
+            </div>
           </div>
         </div>
       </div>

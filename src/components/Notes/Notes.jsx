@@ -19,6 +19,11 @@ const Notes = () => {
         setModalOpen(true)
         localStorage.setItem('data', JSON.stringify(_id))
     }
+    const handleModalClose = (_id) => {
+        setModalOpen(false)
+        localStorage.setItem('data', JSON.stringify(_id))
+    }
+
     const handleOff = () => {
         setOpen(false)
         console.log('off clicked')
@@ -59,13 +64,28 @@ const Notes = () => {
 
     // DELETE NOTES FROM DATABASE
     const handleDeleteOrder = async (_id) => {
+        // e.preventDefault()
         try {
             const res = await axios.delete(`http://localhost:5000/notes/delete/${_id}`)
             res && Swal.fire({
-                icon: "success",
-                title: "Note deleted successfully"
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your file has been deleted.',
+                        'success'
+                    )
+                }
             })
-            res && window.location.reload()
+
+            // res && window.location.reload()
         } catch (err) {
             console.log(err)
         }
@@ -75,25 +95,32 @@ const Notes = () => {
 
             <div className="note__container">
                 {
-                    data.map((item, index) => (
-                        <div className="card me-2 mt-1" style={{ width: '17rem', borderRadius: '10px' }} key={index}>
-                            <div className="card-body">
-                                <h5 className="card-title">{item.title}</h5>
-                                <p className="card-text">{item.description}</p>
-                                <div className="d-flex justify-content-between ">
-                                    <button className="btn btn-danger" onClick={() => handleModalOpen(item._id)}>View</button>
-                                    <button className="btn btn-primary" onClick={handleDeleteOrder}><i className="fa-solid fa-trash"></i></button>
-                                </div>
-                            </div>
-                        </div>
-                    ))
-                }
-                {
-                    open ?
-                        <ViewNotes/>
+                    user ?
+                        <>
+                            {
+                                data.map((item, index) => (
+                                    <div className="card me-2 mt-1" style={{ width: '17rem', borderRadius: '10px' }} key={index}>
+                                        <div className="card-body">
+                                            <h5 className="card-title">{item.title}</h5>
+                                            <p className="card-text">{item.description}</p>
+                                            <div className="d-flex justify-content-between ">
+                                                <button className="btn btn-danger" onClick={() => handleModalOpen(item._id)}>View</button>
+                                                <button className="btn btn-primary" onClick={(e) => handleDeleteOrder(item._id)}><i className="fa-solid fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </>
                         :
-                        " "
+                        <div className="d-flex justify-content-center align-items-center h-100 w-100 mt-5 pt-5">
+                            <h4 className="text-muted">Create your notes 😀</h4>
+                        </div>
                 }
+
+            </div>
+
+            <div className="createNotes">
                 {
                     isOpen ?
                         <CreateNotes isOpen={!isOpen} />
@@ -111,7 +138,15 @@ const Notes = () => {
 
                         </>
                 }
+            </div>
 
+            <div className="notesView">
+                {
+                    open ?
+                        <ViewNotes handleModalClose={handleModalClose} />
+                        :
+                        " "
+                }
             </div>
             <div className="noteAuth">
                 {

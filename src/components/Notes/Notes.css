@@ -1,0 +1,40 @@
+.notes{
+    width: 70%;
+    height: 80vh;
+    /* border: 1px solid red; */
+    position: relative;
+    border-radius:10px;
+    
+}
+ .note__container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+}
+.noteAuth{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: relative; */
+}
+.float__button{
+    width: 100%;
+    height: 50%;
+    /* height: 80vh; */
+}
+.float__button .fl__btn{
+    position: absolute;
+    /* bottom: 250px; */
+    bottom: 20px;
+    right: 20px;
+    border:none;
+    background-color: #00a2ff;
+    color: #fcfcfc;
+    font-weight: 600;
+    padding: 6px 20px;
+    border-radius:10px;
+}
+.fa-plus, .fa-xmark{
+    font-size: 1.22rem !important;
+}

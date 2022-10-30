@@ -22,7 +22,7 @@ const CreateNotes = () => {
         }
         console.log(newPost)
         try {
-            const res = await axios.post('http://localhost:5000/notes/add', newPost)
+            const res = await axios.post('https://notes-server.up.railway.app/notes/add', newPost)
             console.log(res)
             res && Swal.fire({
                 icon: 'success',

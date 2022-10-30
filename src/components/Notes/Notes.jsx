@@ -33,9 +33,9 @@ const Notes = () => {
         console.log('clicked')
     }
 
-    const handleAuthOff = () => {
-        setAuth(!isAuth)
-    }
+    // const handleAuthOff = () => {
+    //     setAuth(!isAuth)
+    // }
     const handleAuthOn = () => {
         setAuth(true)
         // setCancel(true)
@@ -51,7 +51,7 @@ const Notes = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axios.get(`http://localhost:5000/notes/getByEmail?email=` + user?.email)
+                const res = await axios.get(`https://notes-server.up.railway.app/notes/getByEmail?email=` + user?.email)
                 // console.log(res)
                 setData(res.data)
 
@@ -66,7 +66,7 @@ const Notes = () => {
     const handleDeleteOrder = async (_id) => {
         // e.preventDefault()
         try {
-            const res = await axios.delete(`http://localhost:5000/notes/delete/${_id}`)
+            const res = await axios.delete(`https://notes-server.up.railway.app/notes/delete/${_id}`)
             res && Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",

@@ -10,7 +10,7 @@ const ViewNotes = ({handleModalClose}) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/notes/get/${_id}`)
+        const res = await axios.get(`https://notes-server.up.railway.app/notes/get/${_id}`)
         // console.log(res)
         setData(res.data)
 

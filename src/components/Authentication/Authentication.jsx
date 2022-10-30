@@ -32,7 +32,7 @@ const Authentication = () => {
         }
         console.log(userObj)
         try {
-            const res = await axios.post('http://localhost:5000/users/register', userObj)
+            const res = await axios.post('https://notes-server.up.railway.app/users/register', userObj)
             console.log(res)
             setRegistered(res.data)
             res && Swal.fire({
@@ -51,7 +51,7 @@ const Authentication = () => {
         }
         console.log(userObj)
         try {
-            const res = await axios.post('http://localhost:5000/users/login', userObj)
+            const res = await axios.post('https://notes-server.up.railway.app/users/login', userObj)
             res && Swal.fire({
                 icon: 'success',
                 title: "Logged successfully"
@@ -60,6 +60,10 @@ const Authentication = () => {
             console.log(res)
         } catch (err) {
             console.log(err)
+            err && Swal.fire({
+                icon: 'error',
+                title: "Logged in failed"
+            })
         }
     }
     return (
